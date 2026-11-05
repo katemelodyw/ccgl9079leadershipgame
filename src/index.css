@@ -1,0 +1,144 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, -apple-system, 'Segoe UI Emoji', 'Apple Color Emoji',
+    'Noto Color Emoji', sans-serif;
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+
+  --color-ink: #1c1740;
+  --color-ink-soft: #4a4478;
+  --color-cream: #faf7f2;
+  --color-night: #14103a;
+  --color-night-2: #241c5c;
+
+  --color-affiliative: #ec4899;
+  --color-pacesetting: #f59e0b;
+  --color-coaching: #10b981;
+  --color-democratic: #3b82f6;
+  --color-commanding: #ef4444;
+  --color-visionary: #8b5cf6;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background:
+    radial-gradient(1200px 600px at 12% -10%, #4c3bb8 0%, transparent 55%),
+    radial-gradient(900px 500px at 92% 0%, #7b3fa8 0%, transparent 50%),
+    radial-gradient(1000px 700px at 50% 110%, #1f2a6b 0%, transparent 60%),
+    #14103a;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #8b5cf6;
+  color: white;
+}
+
+/* thin, on-theme scrollbars inside panels */
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #c9c2ec transparent;
+}
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: #c9c2ec;
+  border-radius: 999px;
+}
+
+@layer components {
+  .panel {
+    @apply rounded-3xl border border-white/70 bg-white/95 shadow-[0_24px_60px_-24px_rgba(20,16,58,0.55)] backdrop-blur;
+  }
+  .panel-dark {
+    @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur;
+  }
+  .btn,
+  .btn-primary,
+  .btn-ghost,
+  .btn-soft {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-sm font-semibold transition
+      focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-indigo-600 text-white shadow-lg shadow-indigo-900/30 hover:bg-indigo-500 active:scale-[0.99];
+  }
+  .btn-ghost {
+    @apply border border-white/25 bg-white/10 text-white hover:bg-white/20;
+  }
+  .btn-soft {
+    @apply border border-indigo-100 bg-indigo-50 text-indigo-700 hover:bg-indigo-100;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide uppercase;
+  }
+  .field {
+    @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink outline-none
+      placeholder:text-slate-400 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100;
+  }
+}
+
+/* Motion accents that pure utility classes can't express */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.animate-floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+
+@keyframes pulse-danger {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.15);
+  }
+}
+.animate-danger {
+  animation: pulse-danger 1.8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 2.4s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-floaty,
+  .animate-danger,
+  .shimmer::after {
+    animation: none;
+  }
+}
